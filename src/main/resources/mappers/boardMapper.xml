@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="board">
+	
+	<select id="selectAll"
+	resultType="com.example.spring02.board.dto.BoardDTO">
+		SELECT * FROM board
+		ORDER BY bno desc
+	</select>
+	
+	<select id="detail"
+	resultType="com.example.spring02.board.dto.BoardDTO" parameterType="int">
+		SELECT * FROM board
+		where bno=#{bno}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+	delete from board
+	where bno=#{bno}		
+	</delete>
+
+	<insert id="insert">
+		INSERT INTO board(bno,title,writer,content)
+		values (seq_board.nextval,#{title},#{writer},#{content})
+	</insert>	
+	
+	<update id="update">
+		update board set title=#{title}, writer=#{writer}, content=#{content}
+		where bno=#{bno}
+	</update>
+		
+</mapper>
